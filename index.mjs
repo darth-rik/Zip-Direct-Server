@@ -8,16 +8,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-const server = app.listen(PORT, () =>
+export const server = app.listen(PORT, () =>
   console.log(`Server started on port ${PORT}`)
 );
 
 const options = {
   debug: true,
+  proxied: true,
+  allow_discovery: true,
   key: process.env.KEY,
   generateClientId: generatePin,
 };
 
-const peerServer = ExpressPeerServer(server, options);
+export const peerServer = ExpressPeerServer(server, options);
 
 app.use("/peerjs", peerServer);
+
+export default app;
