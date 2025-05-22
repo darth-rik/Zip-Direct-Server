@@ -20,7 +20,7 @@ const options = {
   generateClientId: generatePin,
 };
 
-export const peerServer = ExpressPeerServer(server, options);
+const peerServer = ExpressPeerServer(server, options);
 
 app.use("/peerjs", peerServer);
 

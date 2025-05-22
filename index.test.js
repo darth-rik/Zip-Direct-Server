@@ -1,10 +1,10 @@
-import app, { server } from "./index.mjs";
 import request from "supertest";
+import app, { server } from "./index.mjs";
 
+afterAll((done) => {
+  server.close(done);
+});
 describe("GET /peerjs", () => {
-  afterAll((done) => {
-    server.close(done);
-  });
   it("should respond with a status of 200", async () => {
     const res = await request(app).get("/peerjs");
     expect(res.status).toBe(200);
@@ -12,24 +12,15 @@ describe("GET /peerjs", () => {
   it("should respond with a json object in the body", async () => {
     const res = await request(app).get("/peerjs");
     const resObject = {
-      name: "PeerJS Server",
-      description:
-        "A server side element to broker connections between PeerJS clients.",
-      website: "https://peerjs.com/",
+      msg: `Mock PeerJs Server has started`,
     };
     expect(res.body).toStrictEqual(resObject);
   });
 });
 
-describe(`GET /peerjs/${process.env.KEY}/id`, () => {
-  beforeAll((done) => {
-    server.listen(done);
-  });
-  afterAll((done) => {
-    server.close(done);
-  });
-  it("should respond with a 200 status code", async () => {
-    const res = await request(app).get(`/peerjs/${process.env.KEY}/id`);
-    expect(res.status).toBe(200);
+describe(`GET /peerjs/id`, () => {
+  it("should respond with a six digit code", async () => {
+    const res = await request(app).get(`/peerjs/id`);
+    expect(res.text).toMatch(/\d{6}/);
   });
 });
