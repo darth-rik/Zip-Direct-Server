@@ -21,6 +21,8 @@ jobs:
             mkdir ~/server
             cd ~/server
             git clone git@github.com:darth-rik/Zip-Direct-Server.git
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             npm -v
             npm install
             npm run start
