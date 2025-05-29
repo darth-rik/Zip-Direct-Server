@@ -6,7 +6,7 @@
   "main": "index.mjs",
   "scripts": {
     "test": "jest   --detectOpenHandles",
-    "start": "nodemon ./index.mjs"
+    "start": "node ./index.mjs"
   },
   "author": "Rik",
   "license": "ISC",
