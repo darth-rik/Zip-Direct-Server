@@ -1,0 +1,32 @@
+name: Deploy on server
+on:
+  workflow_run:
+      workflows: [CI]
+      branches: [master]
+      types: [completed]
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - run: echo 'The triggering workflow passed'
+      - name: Deploy Server on Digital Ocean
+        uses: appleboy/ssh-action@v1
+        with: 
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+
+          script: |
+            mkdir ~/server
+            cd ~/server
+            git clone git@github.com:darth-rik/Zip-Direct-Server.git
+            npm install
+            npm run start
+            echo 'Deployment successful'
+      
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - run: echo 'The triggering workflow failed'
