@@ -23,7 +23,7 @@ jobs:
             git clone git@github.com:darth-rik/Zip-Direct-Server.git
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            npm -v
+            cd ~/server/Zip-Direct-Server
             npm install
             npm run start
             echo 'Deployment successful'
