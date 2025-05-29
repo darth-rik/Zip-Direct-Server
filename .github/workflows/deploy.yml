@@ -21,6 +21,7 @@ jobs:
             mkdir ~/server
             cd ~/server
             git clone git@github.com:darth-rik/Zip-Direct-Server.git
+            npm -v
             npm install
             npm run start
             echo 'Deployment successful'
